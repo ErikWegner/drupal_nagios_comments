@@ -1,0 +1,42 @@
+<?php
+function nagios_comments_nagios_info() {
+  return array(
+    'name'   => 'Nagios Comments',
+    'id'     => 'NAGIOS_COMMENTS',
+  );
+}
+
+function nagios_comments_nagios() {
+  $connection = \Drupal::database();
+  $count_unpublished_comments = (int)$connection->query("SELECT COUNT(*) FROM {comment_field_data} WHERE status <> 1")->fetchField();
+  $data = array();
+
+  if ($count_unpublished_comments > 0) {
+    $data = array(
+      'status' => NAGIOS_STATUS_WARNING,
+      'type'   => 'state',
+      'text'   => \Drupal::translation()->formatPlural(
+        $count_unpublished_comments, 
+        "1 unpublished comment",
+        "@count unpublished comments"),
+    );
+  }
+  else {
+    $data = array(
+      'status' => NAGIOS_STATUS_OK,
+      'type'   => 'state',
+      'text'   => t('No unpublished comments'),
+    );
+  }
+
+  $count_published_comments = (int)$connection->query("SELECT COUNT(*) FROM {comment_field_data} WHERE status = 1")->fetchField();
+
+  return [
+    'UNPUB' => $data,
+    'PUBCMT' => [
+        'status' => NAGIOS_STATUS_OK,
+        'type'   => 'perf',
+        'text'   => $count_published_comments,
+      ]
+  ];
+}
