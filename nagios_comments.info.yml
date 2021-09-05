@@ -2,8 +2,9 @@ name: Nagios comments monitoring
 description: A plugin for nagios to monitor comments
 package: Custom
 type: module
-version: 1.0
+version: 1.1
 core: 8.x
+core_version_requirement: ^8 || ^9
 configure: nagios.settings
 dependencies:
   - nagios
