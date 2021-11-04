@@ -1,0 +1,6 @@
+{
+    "name": "erikwegner/drupal_nagios_comments",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "require": {}
+}
