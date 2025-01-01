@@ -3,7 +3,7 @@ description: A plugin for nagios to monitor comments
 package: Custom
 type: module
 version: 1.2
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 configure: nagios.settings
 dependencies:
   - nagios
